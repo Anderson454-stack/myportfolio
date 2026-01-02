@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | AI & Data Solutions</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Pretendard (CDN) & Helvetica Fallback -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    <style>
+        :root {
+            --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+        }
+        body {
+            font-family: var(--font-sans);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        .dark .glass {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .extra-rounded { border-radius: 2rem; }
+        .rounded-card { border-radius: 1.5rem; }
+        
+        /* Glow effects for priorities */
+        .priority-high { box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); border-color: rgba(239, 68, 68, 0.5); }
+        .priority-medium { box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); border-color: rgba(245, 158, 11, 0.5); }
+        .priority-low { box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); border-color: rgba(59, 130, 246, 0.5); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.5); border-radius: 10px; }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+
+        /* Activity Ring Styles */
+        .ring-bg { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 4; }
+        .dark .ring-bg { stroke: rgba(255, 255, 255, 0.05); }
+        .ring-progress { fill: none; stroke-linecap: round; stroke-width: 4; transition: stroke-dasharray 1s ease; }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        appleRed: '#FF3B30',
+                        appleGreen: '#34C759',
+                        appleBlue: '#007AFF',
+                        appleDark: '#1C1C1E',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-black text-gray-900 dark:text-gray-100 min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass extra-rounded px-6 py-3">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-appleRed rounded-full"></div>
+                <span class="font-bold text-xl tracking-tight">DATA INSIGHT</span>
+            </div>
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="#hero" class="hover:text-appleRed transition">Home</a>
+                <a href="#dashboard" class="hover:text-appleGreen transition">Dashboard</a>
+                <a href="#portfolio" class="hover:text-appleBlue transition">Portfolio</a>
+            </div>
+            <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition">
+                <i id="theme-icon" data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="pt-24 pb-12 px-6">
+        
+        <!-- Section: Hero (Identity) -->
+        <section id="hero" class="max-w-7xl mx-auto mb-16 text-center animate-fade-in">
+            <div class="glass extra-rounded p-12 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-appleRed/10 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-appleBlue/10 rounded-full blur-3xl"></div>
+                
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">
+                    Merging Economic Insights <br>with <span class="text-transparent bg-clip-text bg-gradient-to-r from-appleRed via-appleGreen to-appleBlue">AI Precision</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
+                    경제학 전공 기반의 정밀한 데이터 분석가이자, <br>인공지능과 데이터 솔루션을 통해 비즈니스 문제를 해결하는 엔지니어입니다.
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#portfolio" class="bg-appleDark dark:bg-white text-white dark:text-black px-8 py-3 rounded-full font-semibold hover:scale-105 transition">View Projects</a>
+                    <button class="glass px-8 py-3 rounded-full font-semibold hover:bg-white/50 transition">Contact Me</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Dashboard (Planner & Stats) -->
+        <section id="dashboard" class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fade-in" style="animation-delay: 0.1s;">
+            
+            <!-- Left: Featured & Stats -->
+            <div class="lg:col-span-4 space-y-6">
+                <!-- Featured Task Card -->
+                <div id="featured-card" class="glass rounded-card p-6 border-l-4 border-appleRed">
+                    <h3 class="text-xs font-bold text-appleRed uppercase tracking-widest mb-2">Featured Task</h3>
+                    <div id="featured-task-content">
+                        <p class="text-xl font-bold mb-1">포트폴리오 완성하기</p>
+                        <p class="text-sm text-gray-500">긴급 우선순위 항목입니다.</p>
+                    </div>
+                </div>
+
+                <!-- Stats Rings -->
+                <div class="glass rounded-card p-6">
+                    <h3 class="text-sm font-bold mb-4 flex justify-between">Activity <span id="completion-rate">0%</span></h3>
+                    <div class="flex justify-center items-center h-40">
+                        <svg class="w-32 h-32 transform -rotate-90">
+                            <!-- Calories Ring (Red) -->
+                            <circle class="ring-bg" cx="64" cy="64" r="54"></circle>
+                            <circle id="ring-red" class="ring-progress stroke-appleRed" cx="64" cy="64" r="54" stroke-dasharray="0 339"></circle>
+                            <!-- Exercise Ring (Green) -->
+                            <circle class="ring-bg" cx="64" cy="64" r="44"></circle>
+                            <circle id="ring-green" class="ring-progress stroke-appleGreen" cx="64" cy="64" r="44" stroke-dasharray="0 276"></circle>
+                            <!-- Stand Ring (Blue) -->
+                            <circle class="ring-bg" cx="64" cy="64" r="34"></circle>
+                            <circle id="ring-blue" class="ring-progress stroke-appleBlue" cx="64" cy="64" r="34" stroke-dasharray="0 213"></circle>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Pomodoro Timer -->
+                <div class="glass rounded-card p-6 text-center">
+                    <h3 class="text-sm font-bold mb-2">Focus Timer</h3>
+                    <div id="timer-display" class="text-4xl font-mono font-bold mb-4">25:00</div>
+                    <div class="flex justify-center space-x-2">
+                        <button onclick="toggleTimer()" id="timer-btn" class="bg-appleGreen text-white px-4 py-2 rounded-full text-sm">Start</button>
+                        <button onclick="resetTimer()" class="glass px-4 py-2 rounded-full text-sm">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: To-Do & Calendar -->
+            <div class="lg:col-span-8 glass rounded-card p-8">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 space-y-4 md:space-y-0">
+                    <h2 class="text-2xl font-bold">Planner</h2>
+                    <div class="flex items-center space-x-2">
+                        <div class="relative">
+                            <input type="text" id="search-input" placeholder="Search tasks..." class="glass px-4 py-2 rounded-full text-sm outline-none focus:ring-2 focus:ring-appleBlue">
+                        </div>
+                        <select id="filter-select" onchange="renderTasks()" class="glass px-4 py-2 rounded-full text-sm outline-none">
+                            <option value="all">All</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="flex space-x-2 mb-6">
+                    <input type="text" id="task-input" placeholder="할 일을 입력하세요 (ex: 경제 보고서 작성 고순위)" class="flex-1 glass px-6 py-3 rounded-full outline-none">
+                    <button onclick="addTask()" class="bg-appleBlue text-white px-6 py-3 rounded-full font-bold hover:scale-105 transition">Add</button>
+                </div>
+
+                <!-- Task List Container -->
+                <div id="task-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
+                    <!-- Tasks will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Portfolio Projects -->
+        <section id="portfolio" class="max-w-7xl mx-auto mt-20 animate-fade-in" style="animation-delay: 0.2s;">
+            <h2 class="text-3xl font-bold mb-10 text-center">Data Solutions & Research</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="glass rounded-card overflow-hidden hover:scale-[1.02] transition duration-300">
+                    <div class="h-48 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                        <i data-lucide="trending-up" class="w-16 h-16 text-white/50"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-appleBlue uppercase">Economic Analysis</span>
+                        <h3 class="text-xl font-bold mt-2 mb-3">EU GDP Regression Model</h3>
+                        <p class="text-gray-500 text-sm mb-4">계량경제학 모델을 활용하여 EU 국가들의 분기별 GDP 성장을 예측하는 시계열 모델입니다.</p>
+                        <button class="text-appleBlue font-bold text-sm">Case Study →</button>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="glass rounded-card overflow-hidden hover:scale-[1.02] transition duration-300">
+                    <div class="h-48 bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                        <i data-lucide="brain-circuit" class="w-16 h-16 text-white/50"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-appleGreen uppercase">AI Solution</span>
+                        <h3 class="text-xl font-bold mt-2 mb-3">MS AI School Project</h3>
+                        <p class="text-gray-500 text-sm mb-4">자연어 처리와 대규모 언어 모델을 결합한 지능형 데이터 요약 솔루션입니다.</p>
+                        <button class="text-appleGreen font-bold text-sm">Case Study →</button>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="glass rounded-card overflow-hidden hover:scale-[1.02] transition duration-300">
+                    <div class="h-48 bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center">
+                        <i data-lucide="pie-chart" class="w-16 h-16 text-white/50"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-appleRed uppercase">Public Finance</span>
+                        <h3 class="text-xl font-bold mt-2 mb-3">Gov Debt Dashboard</h3>
+                        <p class="text-gray-500 text-sm mb-4">국가 채무 데이터를 시각화하고 거시 경제 변수에 따른 시나리오를 분석하는 대시보드입니다.</p>
+                        <button class="text-appleRed font-bold text-sm">Case Study →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[100] space-y-2"></div>
+
+    <script>
+        // --- State Management ---
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [
+            { id: 1, text: '경제 보고서 초안 작성', completed: false, priority: 'high', subtasks: [] },
+            { id: 2, text: 'AI 모델 파라미터 튜닝', completed: true, priority: 'medium', subtasks: [] }
+        ];
+        let isDarkMode = localStorage.getItem('theme') === 'dark';
+        let timerSeconds = 25 * 60;
+        let timerInterval = null;
+
+        // --- Initialization ---
+        window.onload = () => {
+            if (isDarkMode) document.documentElement.classList.add('dark');
+            updateThemeIcon();
+            renderTasks();
+            lucide.createIcons();
+            updateActivityRings();
+        };
+
+        // --- Theme Functions ---
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const icon = document.getElementById('theme-icon');
+            icon.setAttribute('data-lucide', isDarkMode ? 'sun' : 'moon');
+            lucide.createIcons();
+        }
+
+        // --- Task Functions ---
+        function addTask() {
+            const input = document.getElementById('task-input');
+            const val = input.value.trim();
+            if (!val) return;
+
+            // Simple NLP for Priority
+            let priority = 'medium';
+            if (val.includes('고순위') || val.includes('긴급') || val.includes('high')) priority = 'high';
+            else if (val.includes('저순위') || val.includes('여유') || val.includes('low')) priority = 'low';
+
+            const newTask = {
+                id: Date.now(),
+                text: val.replace(/(고순위|긴급|high|저순위|여유|low)/g, '').trim(),
+                completed: false,
+                priority: priority,
+                subtasks: []
+            };
+
+            tasks.unshift(newTask);
+            saveAndRender();
+            input.value = '';
+            showToast("New task added!");
+        }
+
+        function toggleTask(id) {
+            tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+            saveAndRender();
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            saveAndRender();
+        }
+
+        function saveAndRender() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            renderTasks();
+            updateActivityRings();
+        }
+
+        function renderTasks() {
+            const list = document.getElementById('task-list');
+            const filter = document.getElementById('filter-select').value;
+            const search = document.getElementById('search-input').value.toLowerCase();
+            
+            list.innerHTML = '';
+
+            const filteredTasks = tasks.filter(t => {
+                const matchesFilter = filter === 'all' || t.priority === filter;
+                const matchesSearch = t.text.toLowerCase().includes(search);
+                return matchesFilter && matchesSearch;
+            });
+
+            // Featured Task Logic
+            const highTask = tasks.find(t => t.priority === 'high' && !t.completed);
+            const featuredContent = document.getElementById('featured-task-content');
+            if (highTask) {
+                featuredContent.innerHTML = `<p class="text-xl font-bold mb-1">${highTask.text}</p><p class="text-sm text-gray-500">긴급 우선순위 항목입니다.</p>`;
+            } else {
+                featuredContent.innerHTML = `<p class="text-xl font-bold mb-1">모든 할 일 완료!</p><p class="text-sm text-gray-500">여유로운 시간을 즐기세요.</p>`;
+            }
+
+            filteredTasks.forEach(t => {
+                const div = document.createElement('div');
+                div.className = `group flex items-center justify-between p-4 glass rounded-xl border-l-4 transition-all ${t.completed ? 'opacity-50' : ''} ${t.priority === 'high' ? 'border-appleRed priority-high' : t.priority === 'medium' ? 'border-appleGreen' : 'border-appleBlue'}`;
+                
+                div.innerHTML = `
+                    <div class="flex items-center space-x-4">
+                        <button onclick="toggleTask(${t.id})" class="w-6 h-6 rounded-full border-2 border-gray-400 dark:border-gray-600 flex items-center justify-center hover:border-appleBlue transition">
+                            ${t.completed ? '<div class="w-3 h-3 bg-appleBlue rounded-full"></div>' : ''}
+                        </button>
+                        <span class="${t.completed ? 'line-through text-gray-400' : 'font-medium'}">${t.text}</span>
+                        <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-gray-200 dark:bg-gray-800">${t.priority}</span>
+                    </div>
+                    <button onclick="deleteTask(${t.id})" class="text-gray-400 hover:text-appleRed opacity-0 group-hover:opacity-100 transition">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                `;
+                list.appendChild(div);
+            });
+            lucide.createIcons();
+        }
+
+        // --- Timer Functions ---
+        function toggleTimer() {
+            const btn = document.getElementById('timer-btn');
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                btn.innerText = 'Start';
+                btn.className = 'bg-appleGreen text-white px-4 py-2 rounded-full text-sm';
+            } else {
+                timerInterval = setInterval(() => {
+                    if (timerSeconds > 0) {
+                        timerSeconds--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        showToast("Focus session complete!");
+                        resetTimer();
+                    }
+                }, 1000);
+                btn.innerText = 'Pause';
+                btn.className = 'bg-appleRed text-white px-4 py-2 rounded-full text-sm';
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerSeconds = 25 * 60;
+            updateTimerDisplay();
+            document.getElementById('timer-btn').innerText = 'Start';
+            document.getElementById('timer-btn').className = 'bg-appleGreen text-white px-4 py-2 rounded-full text-sm';
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            document.getElementById('timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // --- Activity Rings ---
+        function updateActivityRings() {
+            const total = tasks.length;
+            const completed = tasks.filter(t => t.completed).length;
+            const rate = total === 0 ? 0 : Math.round((completed / total) * 100);
+            
+            document.getElementById('completion-rate').innerText = `${rate}%`;
+
+            // Ring Calculations
+            const redCirc = 339;   // 2 * PI * 54
+            const greenCirc = 276; // 2 * PI * 44
+            const blueCirc = 213;  // 2 * PI * 34
+
+            const highDone = tasks.filter(t => t.priority === 'high' && t.completed).length;
+            const highTotal = tasks.filter(t => t.priority === 'high').length;
+            const redProgress = highTotal === 0 ? 0 : highDone / highTotal;
+
+            const medDone = tasks.filter(t => t.priority === 'medium' && t.completed).length;
+            const medTotal = tasks.filter(t => t.priority === 'medium').length;
+            const greenProgress = medTotal === 0 ? 0 : medDone / medTotal;
+
+            const lowDone = tasks.filter(t => t.priority === 'low' && t.completed).length;
+            const lowTotal = tasks.filter(t => t.priority === 'low').length;
+            const blueProgress = lowTotal === 0 ? 0 : lowDone / lowTotal;
+
+            document.getElementById('ring-red').style.strokeDasharray = `${redProgress * redCirc} ${redCirc}`;
+            document.getElementById('ring-green').style.strokeDasharray = `${greenProgress * greenCirc} ${greenCirc}`;
+            document.getElementById('ring-blue').style.strokeDasharray = `${blueProgress * blueCirc} ${blueCirc}`;
+        }
+
+        // --- UI Feedback ---
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'glass rounded-full px-6 py-3 border border-white/30 text-sm font-medium animate-fade-in shadow-xl';
+            toast.innerText = msg;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        // Search event
+        document.getElementById('search-input').addEventListener('input', renderTasks);
+    </script>
+</body>
+</html>
